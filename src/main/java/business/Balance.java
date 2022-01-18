@@ -1,13 +1,9 @@
 package business;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
-public class Balance {
-    private final BigDecimal value;
-
-    public Balance(BigDecimal value) {
-        this.value = value;
-    }
+public record Balance(BigDecimal value) {
 
     @Override
     public boolean equals(Object o) {
@@ -16,7 +12,7 @@ public class Balance {
 
         Balance balance = (Balance) o;
 
-        return value != null ? value.equals(balance.value) : balance.value == null;
+        return Objects.equals(value, balance.value);
     }
 
     @Override
