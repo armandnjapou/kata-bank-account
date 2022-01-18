@@ -19,4 +19,8 @@ public record Balance(BigDecimal value) {
     public int hashCode() {
         return value != null ? value.hashCode() : 0;
     }
+
+    public Balance add(Amount amount) {
+        return new Balance(value.add(amount.value()));
+    }
 }
