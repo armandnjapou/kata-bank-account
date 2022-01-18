@@ -32,4 +32,18 @@ class AccountTest {
         expectedAccount.deposit(new Amount(new BigDecimal(40)));
         Assertions.assertEquals(expectedAccount.getBalance(), new Balance(new BigDecimal(50)));
     }
+
+    @Test
+    public void shouldAccountWithBalanceOfTenHaveABalanceOfZeroWhenWithdrawalAnAmountOfTen() {
+        Account expectedAccount = new Account(new Balance(BigDecimal.TEN));
+        expectedAccount.withdrawal(new Amount(BigDecimal.TEN));
+        Assertions.assertEquals(expectedAccount.getBalance(), new Balance(BigDecimal.ZERO));
+    }
+
+    @Test
+    public void shouldAccountWithBalanceOfFiftyHaveABalanceOfThirtyWhenWithdrawalAnAmountOfTwenty() {
+        Account expectedAccount = new Account(new Balance(new BigDecimal(50)));
+        expectedAccount.withdrawal(new Amount(new BigDecimal(20)));
+        Assertions.assertEquals(expectedAccount.getBalance(), new Balance(new BigDecimal(30)));
+    }
 }
