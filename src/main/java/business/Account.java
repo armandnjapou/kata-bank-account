@@ -1,5 +1,7 @@
 package business;
 
+import infrastructure.exception.InsufficientBalanceException;
+
 import java.math.BigDecimal;
 
 public class Account {
@@ -21,7 +23,10 @@ public class Account {
         balance = balance.add(amount);
     }
 
-    public void withdrawal(Amount amount) {
+    public void withdrawal(Amount amount) throws InsufficientBalanceException {
         balance = balance.substract(amount);
+        if(BigDecimal.ZERO.compareTo(balance.value()) > 0){
+            throw new InsufficientBalanceException("Insufficient balance for this operation");
+        }
     }
 }
