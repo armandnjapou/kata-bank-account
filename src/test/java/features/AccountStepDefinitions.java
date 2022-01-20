@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 public class AccountStepDefinitions {
 
     private Account account;
+    Throwable throwable = null;
 
     @Given("account with balance equal to 1500")
     public void account_with_balance_equal_to_1500() {
@@ -39,5 +40,24 @@ public class AccountStepDefinitions {
     @Then("account balance equal to 200")
     public void account_balance_equal_to_200() {
         Assertions.assertEquals(new Balance(new BigDecimal(200)), account.getBalance());
+    }
+
+    @Given("account with balance of 300")
+    public void account_with_balance_of_300() {
+        account = new Account(new Balance(new BigDecimal(300)));
+    }
+
+    @When("withdrawal an amount of 400")
+    public void withdrawal_an_amount_of_400() {
+        try {
+            account.withdrawal(new Amount(new BigDecimal(400)));
+        } catch(Throwable throwable) {
+            this.throwable = throwable;
+        }
+    }
+
+    @Then("denied operation")
+    public void denied_operation() {
+        Assertions.assertTrue(throwable instanceof InsufficientBalanceException);
     }
 }
